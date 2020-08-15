@@ -13,12 +13,18 @@ class App extends React.Component {
       monsters: [],
       searchField:''
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(users => this.setState({ monsters: users }));
+  }
+
+  handleChange = (e) => {
+    this.setState({ searchField: e.target.value })
   }
 
   render() {
@@ -31,7 +37,7 @@ class App extends React.Component {
       <div className="App">
         <SearchBox
         placeholder="search monsters"
-        handleChange={e => this.setState({ searchField: e.target.value })}
+        handleChange={this.handleChange}
         />
         <CardList monsters={filteredMonsters}
         />
